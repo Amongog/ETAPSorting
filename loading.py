@@ -28,14 +28,16 @@ class file_load(object):
         # Loading
         path = file_load.get_path(filePath)
         os.chdir(path)
-        print(path)
+        print('Loading file from: {} ...'.format(path))
         temp = pd.read_excel(fileName, parse_dates=[['Date','Time']])
         # Formating
         temp = temp.set_index('Date_Time')
         temp.index = pd.to_datetime(temp.index, infer_datetime_format=True)
         temp.index.names = ['Full Date']
+        temp.sort_index()
         # Renames column hearders
         file_load.rename_load_cols(temp)
+        print('Loading complete!\n')
         return temp
 
     # 1. Loads all weather measurements files in a folder to a df
@@ -45,7 +47,7 @@ class file_load(object):
     def weather_files(filePath):
         # Loading
         path = file_load.get_path(filePath)
-        print(path)
+        print('Loading files from: {} ...'.format(path))
         allFiles = [file for file in os.listdir(path) if file.endswith('.xlsx')]
         temp = pd.concat([pd.read_excel(path + file, skiprows=1) for file in allFiles], ignore_index=True)
         # Filter
@@ -54,8 +56,10 @@ class file_load(object):
         temp = temp.set_index('Date')
         temp.index = pd.to_datetime(temp.index, yearfirst=True)
         temp.index.names = ['Full Date']
+        temp.sort_index()
         # Renames column hearders
         file_load.rename_weather_cols(temp)
+        print('Loading complete!\n')
         return temp
 
     # Renames column headers
@@ -65,9 +69,3 @@ class file_load(object):
     # Renames column headers
     def rename_weather_cols(dataframe):
         dataframe.columns = ['Err Code','AVG Wind Speed','AVG Wind Direction','AVG Temperature','AVG Relative Humidity','AVG Atmospheric Pressure','AVG Irradiance','AVG Dew Point','MIN Wind Speed','MAX Wind Speed','MIN Wind Direction','MAX Wind Direction','MIN Temperature','MAX Temperature','MIN Relative Humidity','MAX Relative Humidity','MIN Atmospheric Pressure','MAX Atmospheric Pressure','MIN Irradiance','MAX Irradiance','MIN Dew Point','MAX Dew Point']
-
-# %%
-# Testbench
-# EIE_load = electric_load_file('Load','EIE_load.xlsx')
-# EIE_weather = weather_files('Weather')
-# %%
