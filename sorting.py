@@ -14,6 +14,10 @@ class sort_dataframe(object):
     # Sorts dataframe by specified date range
     def date_range(dataframe,dateInit,dateEnd):
         temp = dataframe.loc[dateInit:dateEnd]
+        if temp.empty:
+            print('El rango de fechas seleccionado no se encuentra disponible dentro de los datos proporcionados.')
+        else:
+            print('Selección de periodo existoso!')
         return temp
     
     # Sorts dataframe by specified data. Up to 10 columns

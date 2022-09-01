@@ -16,5 +16,6 @@ EIE_weather = fl.weather_files('Weather')
 EIE_load_1 = sd.filter_data(EIE_load,'P Total','Q Total','PF Total')
 EIE_weather_1 = sd.filter_data(EIE_weather,'AVG Irradiance','AVG Temperature')
 # %%
-EIE_load_1 = sd.date_range(EIE_load_1,'2018-04-09', '2018-04-10')
-EIE_weather_1 = sd.date_range(EIE_weather_1,'2021-04-05', '2018-04-06')
+EIE_load_2 = sd.date_range(EIE_load_1,'2018-04-09', '2018-04-10')
+EIE_weather_2 = sd.date_range(EIE_weather_1,'2021-04-09', '2021-04-10')
+# %%

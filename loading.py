@@ -29,12 +29,11 @@ class file_load(object):
         path = file_load.get_path(filePath)
         os.chdir(path)
         print('Loading file from: {} ...'.format(path))
-        temp = pd.read_excel(fileName, parse_dates=[['Date','Time']])
+        temp = pd.read_excel(fileName, parse_dates=[['Date','Time']], skiprows=10)
         # Formating
+        temp.drop("Unnamed: 0",axis=1, inplace=True)
         temp = temp.set_index('Date_Time')
-        temp.index = pd.to_datetime(temp.index, infer_datetime_format=True)
         temp.index.names = ['Full Date']
-        temp.sort_index()
         # Renames column hearders
         file_load.rename_load_cols(temp)
         print('Loading complete!\n')
@@ -51,6 +50,7 @@ class file_load(object):
         allFiles = [file for file in os.listdir(path) if file.endswith('.xlsx')]
         temp = pd.concat([pd.read_excel(path + file, skiprows=1) for file in allFiles], ignore_index=True)
         # Filter
+        # Removes empty columns
         temp = temp[temp.columns.drop(list(temp.filter(regex='Unnamed:')))]
         # Formating
         temp = temp.set_index('Date')
