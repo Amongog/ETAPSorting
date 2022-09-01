@@ -7,17 +7,18 @@ The project aims to sort out weather data and parse it in a
 .XLSM file following ETAP formatting, so it can be used in simulations with this software.
 """
 # %%
-class sort_dataframe(object):
+class sort_data(object):
     # ==============================
     # Methods for sorting dataframes
     # ==============================
+    
     # Sorts dataframe by specified date range
     def date_range(dataframe,dateInit,dateEnd):
         temp = dataframe.loc[dateInit:dateEnd]
         if temp.empty:
-            print('El rango de fechas seleccionado no se encuentra disponible dentro de los datos proporcionados.')
+            print('Unavailable date range selected.')
         else:
-            print('Selección de periodo existoso!')
+            print('---> Selection OK')
         return temp
     
     # Sorts dataframe by specified data. Up to 10 columns

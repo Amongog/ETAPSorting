@@ -14,6 +14,7 @@ class file_load(object):
     # ==============================
     # Methods for loading files
     # ==============================
+    
     # Makes relative path
     def get_path(filePath):
         dir = os.path.dirname(__file__)
@@ -36,7 +37,7 @@ class file_load(object):
         temp.index.names = ['Full Date']
         # Renames column hearders
         file_load.rename_load_cols(temp)
-        print('Loading complete!\n')
+        print('---> Loading complete!')
         return temp
 
     # 1. Loads all weather measurements files in a folder to a df
@@ -56,10 +57,10 @@ class file_load(object):
         temp = temp.set_index('Date')
         temp.index = pd.to_datetime(temp.index, yearfirst=True)
         temp.index.names = ['Full Date']
-        temp.sort_index()
+        # temp.sort_index()
         # Renames column hearders
         file_load.rename_weather_cols(temp)
-        print('Loading complete!\n')
+        print('---> Loading complete!')
         return temp
 
     # Renames column headers
