@@ -4,7 +4,7 @@
 This project was written for thesis work.
 
 The project aims to sort out weather data and parse it in a
-.XLSM file following ETAP formatting, so it can be used in simulations with this software.
+.XLSX file following ETAP formatting, so it can be used in simulations with this software.
 """
 # %%
 import os
@@ -21,6 +21,12 @@ class file_load(object):
         # The last <''> is added so a final backlash <\> is added to the path in Windows
         temp = os.path.join(dir,'Measurements',filePath,'')
         return temp
+    
+    # Sets path to existing folder
+    def set_path(mainFolder='', subFolder=''):
+        dir = os.path.dirname(__file__)
+        temp = os.path.join(dir, mainFolder, subFolder,'')
+        return temp
 
     # 1. Loads load measurements in a df
     # 2. Merges Date & Time column and sets it as index and renames it
@@ -34,7 +40,7 @@ class file_load(object):
         # Formating
         temp.drop("Unnamed: 0",axis=1, inplace=True)
         temp = temp.set_index('Date_Time')
-        temp.index.names = ['Full Date']
+        temp.index.names = ['Date']
         # Renames column hearders
         file_load.rename_load_cols(temp)
         print('---> Loading complete!')
@@ -56,8 +62,6 @@ class file_load(object):
         # Formating
         temp = temp.set_index('Date')
         temp.index = pd.to_datetime(temp.index, yearfirst=True)
-        temp.index.names = ['Full Date']
-        # temp.sort_index()
         # Renames column hearders
         file_load.rename_weather_cols(temp)
         print('---> Loading complete!')

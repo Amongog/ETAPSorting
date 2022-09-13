@@ -4,11 +4,11 @@
 This project was written for thesis work.
 
 The project aims to sort out weather data and parse it in a
-.XLSM file following ETAP formatting, so it can be used in simulations with this software.
+.XLSX file following ETAP formatting, so it can be used in simulations with this software.
 """
 # %%
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
+# import matplotlib.dates as mdates
 import random
 # %%
 class plot_data(object):
@@ -25,7 +25,7 @@ class plot_data(object):
         return temp
     
     # Line Plot
-    def line_plot(dataframe):
+    def line_plot(dataframe, title, ylabel):
         # Theme
         plt.style.use('fivethirtyeight')
         # Figure size
@@ -41,7 +41,11 @@ class plot_data(object):
         # xvalues = dataframe.index.values
         # yvalues = dataframe['P Total']
         # Plot data set
-        dataframe.plot(linewidth=1)
+        dataframe.plot(kind='line',
+                       linewidth=1,
+                       title=title,
+                       ylabel=ylabel,
+                       figsize=(10,5))
         # fig.autofmt_xdate()
         # Show graph
         plt.show()
